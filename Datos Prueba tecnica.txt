@@ -1,0 +1,7 @@
+gradle cleanArchitecture --package=co.com.bluebank --type=reactive --name=sigecbluebank --coverage=jacoco --lombok=true
+
+
+gradle generateDrivenAdapter --type=r2dbc
+gradle generateDrivenAdapter --type=generic --name secrets-manager-common
+gradle generateEntryPoint --type=webflux
+gradle generateUseCase --name=GestionCuentaUseCase
