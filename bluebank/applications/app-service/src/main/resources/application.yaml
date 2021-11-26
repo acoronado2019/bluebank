@@ -1,0 +1,63 @@
+##Spring Configuration
+server:
+  port: ${SERVER_PORT}
+
+project:
+  code: ${APPLICATION_CODE}
+  name: ${PROJECT_NAME}
+  env: ${ENVIRONMENT}
+
+spring:
+  application:
+    name: ${APPLICATION_NAME}
+  devtools:
+    add-properties: false
+  jackson:
+    default-property-inclusion: NON_NULL
+  profiles:
+    active: ${SPRING_PROFILE_ACTIVE}
+  webflux:
+    base-path: ${PATH_BASE}
+
+  logging:
+    level:
+      root: INFO
+      reactor:
+        netty: OFF
+
+adapters:
+  secrets-manager:
+    cache-size: ${CACHE_SECRETS_SIZE}
+    cache-time: ${CACHE_SECRETS_SECONDS}
+    endpoint: http://localhost:4566
+
+entries:
+  reactive-web:
+    base-path: ${PATH_BASE}
+    create_account: ${PATH_CREATE-ACCOUNT}
+    consignment: ${PATH_CONSIGNMENT}
+    withdraw_money: ${PATH_WITHDRAW-MONEY}
+    check_balance: ${PATH_CHECK-BALANCE}
+
+secrets:
+  postgres: ${SECRET-RDS}
+
+management:
+  health:
+    probes:
+      enabled: true
+  endpoint:
+    health:
+      show-details: never
+      enabled: true
+      cache:
+        time-to-live: 10s
+  endpoints:
+    web:
+      base-path: /
+      path-mapping:
+        health: health
+        liveness: liveness
+        readiness: readiness
+      exposure:
+        include: health, liveness, readiness
